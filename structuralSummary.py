@@ -346,9 +346,6 @@ class StructuralSummary:
 		pair = (determinants['(2)'])
 		reflections = determinants['Fr']+determinants['rF']
 		output = {
-
-
-
 			'3r+(2)/R': str(Decimal((3*reflections+pair)/self.R).quantize(Decimal("1.00"))),
 			'Fr+rF': reflections,
 			'SumV': self.lower['core']['SumV'],
