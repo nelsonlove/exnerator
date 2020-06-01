@@ -32,6 +32,13 @@ from texttable import Texttable
 		#does it have a side?
 		#
 
+		#also the damn thing won't justify right unless we can do newlines and empty space
+		#which means not using a dict format, which makes sense since dict isn't ordered anyway
+		#so they all have to be 2d arrays
+		#but either sideheaders or key value pairs
+		#maybe throw everything into a dictionary then specify the layout separate;y
+		#instead of having the dict set the layout...makes sense
+
 class page:
 	pass
 	#multiple tables on a page
@@ -51,54 +58,59 @@ class Table:
 			'width': None
 		}
 		self.p.update(kwargs)
-		style = self.p['style']
-		if self.p['breaks'] != []:
-			style = 'd1cols'
+		self.style = self.p['style']
+		if self.p['breaks'] != [] and type(rows[0]) == list:
+			self.style = 'd1cols'
 		self.rows = []
 		#types of table
-		self.styleIt = {
-			'd1': self.d1(),
-			'd2': self.d2(),
-			'list': self.list(),
-			'd1cols': self.d1cols(),
-			'custom': self.custom()
-		}
-
-		self.styleIt[style]
+		if self.style == 'd1':
+			self.rows = self.d1()
+		elif self.style == 'd2':
+			self.rows = self.d2()
+		elif self.style == 'list':
+			self.rows = self.list()
+		elif self.style == 'dcols':
+			self.rows = self.d1cols()
+		else:
+			self.rows = self.custom()
 		self.out = self.draw()
 
 	def draw(self):
 		name = ""
 		if self.p['name']:
-			name = self.p['name']+"\n"
+			name = self.p['name']+":\n\n"
 		table = Texttable()
 		#table.set_cols_align(self.p['align'] * (self.cols))
 		#table.set_cols_dtype(self.p['dtype'] * (self.cols))
 		if self.p['width']: table.set_cols_width(self.p['width'])
 		table.set_deco(Texttable.HEADER)
-		table.add_rows(self.rows,header=self.p['header'])
+		table.add_rows(self.rows,header=False)
 		return(name+table.draw()+"\n")
 
 	def d1(self): #1d1c
-		for key in self.data.keys():
-			self.rows.append([key,self.data[key]])
-		return(self.draw())
+		return self.unTuple(self.data)
 
 	def list(self): #list
-		pass
+		out = []
+		for item in self.data:
+			out.append([item])
+		return out
 
 	def d2(self): #2d
 		pass
 
 	def d1cols(self): #1dXc
+		print(self.style)
+		if self.style != 'd1cols':
+			return
 		breaks = self.p['breaks']
 		data = self.data
 		cols = len(breaks)+1
-		l = len(data.keys())
+		l = len(data)
 		lengths = []
 		x = 0
-		for key in data.keys():
-			if key in breaks:
+		for row in data:
+			if row[0] in breaks:
 				lengths.append(x)
 				x = 1
 			else:
@@ -112,11 +124,11 @@ class Table:
 		x = 0
 		y = 0
 		#now we populate the empty array
-		for key in data.keys():
-			if key in breaks:
+		for row in data:
+			if row[0] in breaks or row[0] == ["&BR"]:
 				x += 1
 				y = 0
-			a[x][y] = key
+			a[x][y] = row
 			y += 1
 
 		#nifty line to transpose the array
@@ -125,16 +137,25 @@ class Table:
 		#now we add values after the keys
 		#newRows is a little kludgy but insert runs forever
 		out = []
-		for row in aTrans:
+		return unTuple(aTrans)
+
+	def unTuple(self,data):
+		out = []
+		maxWidth = max(len(x) for x in self.data)
+		for row in data:
 			newRow = []
-			for item in row:
-				newRow.append(item)
-				if item != "":
-					newRow.append(data[item])
-				else:
-					newRow.append("")
+			if row == []:
+				newRow = maxWidth*2*[""]
+			else:
+				for item in row:
+					if len(item) == 2:
+						newRow.append(item[0])
+						newRow.append(item[1])
+					else:
+						newRow.append("")
+						newRow.append("")
 			out.append(newRow)
-		self.rows = out
+		return out
 
 	def custom(self):
 		pass
