@@ -1,14 +1,36 @@
 from table import *
 from variables import *
+from table import Columns
 
 class Block:
 	def __init__(self):
 		pass
 	def __str__(self):
-		return Table(self.data,style="d1",name="Core").out
+		if self.style == 'Columns': return Columns(
+			self.data,self.layout,
+			name=self.name, **self.tableArgs).out
+
+class Determinants(Block):
+	def __init__(self,contents):
+		self.name = "Contents"
+		self.data = contents
+		self.layout = [	['H', '(H)', 'Hd', '(Hd)', 'Hx', 'A', '(A)', 'Ad', '(Ad)', 'An', 'Art', 'Ay', 'Bl','Bt'],
+						['Cg','Cl', 'Ex', 'Fi', 'Fd', 'Ge', 'Hh', 'Ls', 'Na', 'Sc', 'Sx', 'Xy', None,'Id']]
+		self.style = 'Columns'
+		self.tableArgs = {'widths': [4,2,4,2]}
+
+class Contents(Block):
+	def __init__(self,contents):
+		self.name = "Contents"
+		self.data = contents
+		self.layout = [	['H', '(H)', 'Hd', '(Hd)', 'Hx', 'A', '(A)', 'Ad', '(Ad)', 'An', 'Art', 'Ay', 'Bl','Bt'],
+						['Cg','Cl', 'Ex', 'Fi', 'Fd', 'Ge', 'Hh', 'Ls', 'Na', 'Sc', 'Sx', 'Xy', None,'Id']]
+		self.style = 'Columns'
+		self.tableArgs = {'widths': [4,2,4,2]}
 
 class Core(Block):
 	def __init__(self,c):
+		self.name = "Core"
 		self.R = R(c)
 		self.L = L(c)
 		self.WSumC = WSumC(c)
