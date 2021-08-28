@@ -1,0 +1,131 @@
+from .models import CodeEnum
+
+
+class Card(CodeEnum):
+    I = 'I'
+    II = 'II'
+    III = 'III'
+    IV = 'IV'
+    V = 'V'
+    VI = 'VI'
+    VII = 'VII'
+    VIII = 'VIII'
+    IX = 'IX'
+    X = 'X'
+
+
+class DQ(CodeEnum):
+    SYNTHESIZED = '+'
+    SYNTHESIZED_VAGUE = '/'
+    ORDINARY = 'o'
+    VAGUE = 'v'
+
+
+class Location(CodeEnum):
+    WHOLE = 'W'
+    DETAIL_COMMON = 'D'
+    DETAIL_UNUSUAL = 'Dd'
+    WHOLE_WHITESPACE = 'WS'
+    DETAIL_COMMON_WHITESPACE = 'DS'
+    DETAIL_UNUSUAL_WHITESPACE = 'DdS'
+
+
+class Determinant(CodeEnum):
+    PURE_FORM = 'F'
+    FORM_DIMENSION = 'FD'
+    PAIR = '(2)'
+    FORM_REFLECTION = 'Fr'
+    REFLECTION_FORM = 'rF'
+    MOVEMENT_HUMAN_ACTIVE = 'Ma'
+    MOVEMENT_HUMAN_PASSIVE = 'Mp'
+    MOVEMENT_HUMAN_ACTIVE_PASSIVE = 'Ma-p'
+    MOVEMENT_ANIMAL_ACTIVE = 'FMa'
+    MOVEMENT_ANIMAL_PASSIVE = 'FMp'
+    MOVEMENT_ANIMAL_ACTIVE_PASSIVE = 'FMa-p'
+    MOVEMENT_INANIMATE_ACTIVE = 'ma'
+    MOVEMENT_INANIMATE_PASSIVE = 'mp'
+    MOVEMENT_INANIMATE_ACTIVE_PASSIVE = 'ma-p'
+    PURE_COLOR = 'C'
+    COLOR_FORM = 'CF'
+    FORM_COLOR = 'FC'
+    COLOR_NAMING = 'Cn'
+    PURE_ACHROMATIC_COLOR = "C'"
+    ACHROMATIC_COLOR_FORM = "C'F"
+    FORM_ACHROMATIC_COLOR = "FC'"
+    PURE_TEXTURE = 'T'
+    TEXTURE_FORM = 'TF'
+    FORM_TEXTURE = 'FT'
+    PURE_VISTA = 'V'
+    VISTA_FORM = 'VF'
+    FORM_VISTA = 'FV'
+    PURE_SHADING = 'Y'
+    SHADING_FORM = 'YF'
+    FORM_SHADING = 'FY'
+
+
+class FQ(CodeEnum):
+    SUPERIOR = '+'
+    ORDINARY = 'o'
+    UNUSUAL = 'u'
+    MINUS = '-'
+    NONE = ''
+
+
+class Content(CodeEnum):
+    WHOLE_HUMAN = 'H'
+    WHOLE_HUMAN_FICTIONAL = '(H)'
+    HUMAN_DETAIL = 'Hd'
+    HUMAN_DETAIL_FICTIONAL = '(Hd)'
+    HUMAN_EXPERIENCE = 'Hx'
+    WHOLE_ANIMAL = 'A'
+    WHOLE_ANIMAL_FICTIONAL = '(A)'
+    ANIMAL_DETAIL = 'Ad'
+    ANIMAL_DETAIL_FICTIONAL = '(Ad)'
+    ANATOMY = 'An'
+    ART = 'Art'
+    ANTHROPOLOGY = 'Ay'
+    BLOOD = 'Bl'
+    BOTANY = 'Bt'
+    CLOTHING = 'Cg'
+    CLOUDS = 'Cl'
+    EXPLOSION = 'Ex'
+    FIRE = 'Fi'
+    FOOD = 'Fd'
+    GEOGRAPHY = 'Ge'
+    HOUSEHOLD = 'Hh'
+    LANDSCAPE = 'Ls'
+    NATURE = 'Na'
+    SCIENCE = 'Sc'
+    SEX = 'Sx'
+    X_RAY = 'Xy'
+    IDIOGRAPHIC = 'Id'
+
+
+class ZScore(CodeEnum):
+    WHOLE_RESPONSE = 'ZW'
+    ADJACENT_OBJECTS = 'ZA'
+    DISTANT_OBJECTS = 'ZD'
+    INTEGRATED_WHITE_SPACE = 'ZS'
+    NONE = ''
+
+
+class Special(CodeEnum):
+    DEVIANT_VERBALIZATION_1 = 'DV1'
+    DEVIANT_VERBALIZATION_2 = 'DV2'
+    DEVIANT_RESPONSE_1 = 'DR1'
+    DEVIANT_RESPONSE_2 = 'DR2'
+    INCONGRUOUS_COMBINATION_1 = 'INCOM1'
+    INCONGRUOUS_COMBINATION_2 = 'INCOM2'
+    FABULIZED_COMBINATION_1 = 'FABCOM1'
+    FABULIZED_COMBINATION_2 = 'FABCOM2'
+    CONTAMINATION = 'CONTAM'
+    INAPPROPRIATE_LOGIC = 'ALOG'
+    PERSEVERATION = 'PSV'
+    ABSTRACT_CONTENT = 'AB'
+    AGGRESSIVE_MOVEMENT = 'AG'
+    COOPERATIVE_MOVEMENT = 'COP'
+    MORBID_CONTENT = 'MOR'
+    PERSONAL = 'PER'
+    COLOR_PROJECTION = 'CP'
+    HUMAN_REPRESENTATION_GOOD = 'GHR'
+    HUMAN_REPRESENTATION_POOR = 'PHR'

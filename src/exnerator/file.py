@@ -1,34 +1,41 @@
-from pathlib import Path
 import openpyxl as xl
 
+from .exceptions import InvalidColumnsError, NoResponsesError
+from .models import File
 
-class InvalidColumnsError(Exception):
-    def __init__(self, file, sheet):
-        self.file = file
-        self.sheet = sheet
 
-        super().__init__()
+class ExcelFile(File):
+    def __init__(self, filename):
+        super().__init__(filename)
 
     def __str__(self):
-        return f'Sheet {self.sheet.max_column} in file {self.file} has {self.sheet.max_column} columns; expected 9.'
+        return f'Excel file {self.filename}'
 
-
-class File:
-    @classmethod
-    def load_from_excel(cls, filename):
-        book = xl.load_workbook(filename)
-        print('File "', filename, '" loaded.', sep='')
+    def open(self):
+        book = xl.load_workbook(self.filename)
         sheet = book.active
-        if sheet.max_column != 9:
-            raise InvalidColumnsError(filename, sheet)
         print(f'Sheet {sheet.title} loaded.')
-        # print([cell.value for cell in sheet[1]])
-        # quit()
-        num_responses = sheet.max_row - 1
-        print(f'{num_responses} responses found.')
+        return sheet
+
+    def validate(self):
+        if self.columns != 9:
+            raise InvalidColumnsError(self)
+        elif self.responses < 1:
+            raise NoResponsesError(self)
+
+    @property
+    def columns(self):
+        return self._data.max_column
+
+    @property
+    def responses(self):
+        return self._data.max_row - 1
+
+    @property
+    def data(self):
         out = []
-        for row in range(2, num_responses + 2):
-            out.append([cell.value for cell in sheet[row]])
+        for row in range(2, self.responses + 2):
+            out.append([cell.value for cell in self._data[row]])
         return out
 
 
