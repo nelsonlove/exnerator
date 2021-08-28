@@ -6,10 +6,10 @@ from src.exnerator.exceptions import InvalidColumnsError, NoResponsesError
 
 class TestExcelFile(TestCase):
     def setUp(self):
-        self.valid_file = ExcelFile('./exner sos.xlsx')
-        self.missing_col = Path('./exner sos missing col.xlsx')
-        self.extra_col = Path('./exner sos extra col.xlsx')
-        self.no_responses = Path('./exner sos no responses.xlsx')
+        self.valid_file = ExcelFile('valid.xlsx')
+        self.missing_col = Path('missing_cols.xlsx')
+        self.extra_col = Path('extra_cols.xlsx')
+        self.no_responses = Path('no_responses.xlsx')
 
     def test_open(self):
         self.assertEqual(len(self.valid_file.data), 17)

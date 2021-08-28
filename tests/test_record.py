@@ -10,7 +10,7 @@ from decimal import Decimal
 # noinspection PyPep8Naming,SpellCheckingInspection
 class TestRecord(TestCase):
     def setUp(self):
-        file = ExcelFile('./exner sos.xlsx')
+        file = ExcelFile('valid.xlsx')
         self.record = Record(file.data, 19)
 
     def test_count(self):

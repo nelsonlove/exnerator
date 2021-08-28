@@ -7,7 +7,7 @@ from src.exnerator import enums
 
 class TestResponse(TestCase):
     def setUp(self):
-        file = ExcelFile('./exner sos.xlsx')
+        file = ExcelFile('valid.xlsx')
         self.response = Response(file.data[0])
 
     def test_response(self):

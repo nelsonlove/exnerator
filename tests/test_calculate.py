@@ -10,7 +10,7 @@ from src.exnerator.enums import DQ
 
 class TestCalculate(TestCase):
     def setUp(self):
-        file = ExcelFile('./exner sos.xlsx')
+        file = ExcelFile('valid.xlsx')
         self.record = Record(file.data)
     #
     # def test_L(self):
